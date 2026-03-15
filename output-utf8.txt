@@ -1,0 +1,522 @@
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 27: "{
+  const renderDashboardCard = (title: string, screenName: string, icon: keyof typeof MaterialCommunityIcons.glyphMap, color: string) => ("
+   Surrounding: const StaffDashboardScreen = ({ navigation }: any) => {
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 31: "navigation.navigate(screenName)}
+    >"
+   Surrounding: onPress={() => navigation.navigate(screenName)}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 40: ");
+
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 44: "(null);
+
+  // --- FILTER STATE ---
+  const [selectedProgram, setSelectedProgram] = useState"
+   Surrounding: const [data, setData] = useState<StaffDashboardData | null>(null);
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 47: "('UG');
+  const [selectedYear, setSelectedYear] = useState"
+   Surrounding: const [selectedProgram, setSelectedProgram] = useState<'UG' | 'PG'>('UG');
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 48: "('1');
+  const [selectedShift, setSelectedShift] = useState"
+   Surrounding: const [selectedYear, setSelectedYear] = useState<'1' | '2' | '3'>('1');
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 49: "('1'); // New State
+  const [showProgramDropdown, setShowProgramDropdown] = useState(false);
+  const [showYearDropdown, setShowYearDropdown] = useState(false);
+  const [showShiftDropdown, setShowShiftDropdown] = useState(false); // New State
+
+  // --- MODAL STATE ---
+  const [modalVisible, setModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState"
+   Surrounding: const [selectedShift, setSelectedShift] = useState<'1' | '2'>('1'); // New State
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 57: "(null);
+
+  // Fetch data whenever filters change
+  useEffect(() => {
+    fetchAdminData();
+  }, [selectedProgram, selectedYear, selectedShift]);
+
+  // Handle Logic: If PG is selected, reset Year 3 to Year 1
+  useEffect(() => {
+    if (selectedProgram === 'PG' && selectedYear === '3') {
+      setSelectedYear('1');
+    }
+  }, [selectedProgram]);
+
+  // --- 1. DUMMY DATA (Backend will be integrated later) ---
+  const fetchAdminData = async () => {
+    setLoading(true);
+
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Generate dummy data based on selected filters
+    const dummyData: StaffDashboardData = {
+      adminName: "Dr. Kumar",
+      role: "Class Advisor",
+      stats: {
+        totalStudents: selectedProgram === 'UG' ? 45 : 30,
+        presentToday: selectedProgram === 'UG' ? 38 : 26,
+        absentToday: selectedProgram === 'UG' ? 7 : 4,
+      },
+      recentRecords: [
+        { id: '1', name: 'Aravind Kumar', status: 'Present' },
+        { id: '2', name: 'Priya Sharma', status: 'Present' },
+        { id: '3', name: 'Rahul Singh', status: 'Absent' },
+        { id: '4', name: 'Meera Patel', status: 'Present' },
+        { id: '5', name: 'Vikram Reddy', status: 'Present' },
+      ]
+    };
+
+    setData(dummyData);
+    setLoading(false);
+  };
+
+  // --- OPEN MODAL ---
+  const openEditModal = (record: AttendanceRecord) => {
+    setSelectedStudent(record);
+    setModalVisible(true);
+  };
+
+  // --- 2. UPDATE STATUS LOCALLY (Backend integration later) ---
+  const saveStatusChange = async (newStatus: 'Present' | 'Absent') => {
+    if (!data || !selectedStudent) return;
+
+    // Update list UI
+    const updatedRecords = data.recentRecords.map(rec =>
+      rec.id === selectedStudent.id ? { ...rec, status: newStatus } : rec
+    );
+
+    // Update stats UI locally
+    let newStats = { ...data.stats };
+    if (selectedStudent.status !== newStatus) {
+      if (newStatus === 'Present') {
+        newStats.presentToday++;
+        newStats.absentToday--;
+      } else {
+        newStats.presentToday--;
+        newStats.absentToday++;
+      }
+    }
+
+    setData({ ...data, stats: newStats, recentRecords: updatedRecords });
+    setModalVisible(false);
+
+    // Show success message
+    Alert.alert("Success", `Marked ${selectedStudent.name} as ${newStatus}`);
+  };
+
+  const filteredRecords = data?.recentRecords?.filter(record =>
+    record.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    record.id.toString().includes(searchQuery)
+  ) || [];
+
+  if (loading && !data) {
+    return ("
+   Surrounding: const [selectedStudent, setSelectedStudent] = useState<AttendanceRecord | null>(null);
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 143: ");
+  }
+
+  return ("
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 164: "navigation.navigate("StaffProfileScreen")}>"
+   Surrounding: <TouchableOpacity style={styles.bellButton} onPress={() => navigation.navigate("StaffProfileScreen")}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 175: "{ setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); setShowShiftDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 179: "{showProgramDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 182: "{['UG', 'PG'].map((prog) => ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 187: "{ setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+                    >"
+   Surrounding: onPress={() => { setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 192: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 194: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 202: "{ setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); setShowShiftDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 208: "{showYearDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 211: "{['1', '2', '3'].map((year) => {
+                    if (selectedProgram === 'PG' && year === '3') return null;
+                    return ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 218: "{ setSelectedYear(year as any); setShowYearDropdown(false); }}
+                      >"
+   Surrounding: onPress={() => { setSelectedYear(year as any); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 223: ");
+                  })}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 226: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 234: "{ setShowShiftDropdown(!showShiftDropdown); setShowProgramDropdown(false); setShowYearDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowShiftDropdown(!showShiftDropdown); setShowProgramDropdown(false); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 238: "{showShiftDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 241: "{['1', '2'].map((s) => ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 246: "{ setSelectedShift(s as any); setShowShiftDropdown(false); }}
+                    >"
+   Surrounding: onPress={() => { setSelectedShift(s as any); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 251: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 253: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 261: "{/* Loading Indicator for Filter Change */}
+        {loading && ("
+   Surrounding: <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 267: ")}
+
+        {/* --- ATTENDANCE CARD  --- */}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 271: "navigation.navigate('ManualAttendanceScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.manualCard} onPress={() => navigation.navigate('ManualAttendanceScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 295: "navigation.navigate('StudentManagementScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.statCard} onPress={() => navigation.navigate('StudentManagementScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 303: "navigation.navigate('PresentStudentsScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.statCard} onPress={() => navigation.navigate('PresentStudentsScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 311: "navigation.navigate('AbsentStudentsScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.statCard} onPress={() => navigation.navigate('AbsentStudentsScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 338: "{filteredRecords.length > 0 ? (
+            filteredRecords.map((record, index) => ("
+   Surrounding: <View style={styles.listContainer}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 351: "openEditModal(record)}>"
+   Surrounding: <TouchableOpacity style={styles.editBtn} onPress={() => openEditModal(record)}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 354: "))
+          ) : ("
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 359: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 367: "navigation.navigate('StudentManagementScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('StudentManagementScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 374: "navigation.navigate('AttendancePercentageScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('AttendancePercentageScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 381: "navigation.navigate('LeaveSettingsScreen')}>"
+   Surrounding: <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('LeaveSettingsScreen')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 390: "setModalVisible(false)}>"
+   Surrounding: <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 395: "saveStatusChange('Present')}>"
+   Surrounding: <TouchableOpacity style={[styles.modalBtn, { backgroundColor: '#dcfce7' }]} onPress={() => saveStatusChange('Present')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 399: "saveStatusChange('Absent')}>"
+   Surrounding: <TouchableOpacity style={[styles.modalBtn, { backgroundColor: '#fee2e2' }]} onPress={() => saveStatusChange('Absent')}>
+Possible stray text in front_end/screens/Staff/StaffDashboardScreen.tsx at line 403: "setModalVisible(false)}>"
+   Surrounding: <TouchableOpacity style={styles.cancelBtn} onPress={() => setModalVisible(false)}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 17: "{
+  const [students, setStudents] = useState"
+   Surrounding: const ManualAttendanceScreen = ({ navigation }: any) => {
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 18: "([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedHour, setSelectedHour] = useState"
+   Surrounding: const [students, setStudents] = useState<Student[]>([]);
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 20: "(1);
+  const [viewMode, setViewMode] = useState"
+   Surrounding: const [selectedHour, setSelectedHour] = useState<number>(1);
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 21: "('hourly'); // New State
+
+  // --- FILTER STATE ---
+  const [selectedProgram, setSelectedProgram] = useState"
+   Surrounding: const [viewMode, setViewMode] = useState<'hourly' | 'fullday'>('hourly'); // New State
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 24: "('UG');
+  const [selectedYear, setSelectedYear] = useState"
+   Surrounding: const [selectedProgram, setSelectedProgram] = useState<'UG' | 'PG'>('UG');
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 25: "('1');
+  const [selectedShift, setSelectedShift] = useState"
+   Surrounding: const [selectedYear, setSelectedYear] = useState<'1' | '2' | '3'>('1');
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 26: "('1');
+  const [showProgramDropdown, setShowProgramDropdown] = useState(false);
+  const [showYearDropdown, setShowYearDropdown] = useState(false);
+  const [showShiftDropdown, setShowShiftDropdown] = useState(false);
+
+  // Handle Logic: If PG is selected, reset Year 3 to Year 1
+  useEffect(() => {
+    if (selectedProgram === 'PG' && selectedYear === '3') {
+      setSelectedYear('1');
+    }
+  }, [selectedProgram]);
+
+  // --- MOCK DATA FETCH ---
+  useEffect(() => {
+    setTimeout(() => {
+      // No avatar URLs here anymore
+      const dummyStudents: Student[] = [
+        { id: '1', name: 'Aravind R.', regNo: 'STU-001', status: null },
+        { id: '2', name: 'Meena S.', regNo: 'STU-002', status: null },
+        { id: '3', name: 'Rahul K.', regNo: 'STU-003', status: null },
+        { id: '4', name: 'Sita P.', regNo: 'STU-004', status: null },
+        { id: '5', name: 'John D.', regNo: 'STU-005', status: null },
+        { id: '6', name: 'Kavya M.', regNo: 'STU-006', status: null },
+        { id: '7', name: 'Vikram S.', regNo: 'STU-007', status: null },
+      ];
+      setStudents(dummyStudents);
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  // --- HANDLERS ---
+  const markStudent = (id: string, status: 'Present' | 'Absent') => {
+    setStudents(prev =>
+      prev.map(stu => stu.id === id ? { ...stu, status: status } : stu)
+    );
+  };
+
+  const markAllPresent = () => {
+    setStudents(prev => prev.map(stu => ({ ...stu, status: 'Present' })));
+  };
+
+  const handleSubmit = () => {
+    const pending = students.filter(s => s.status === null);
+    if (pending.length > 0) {
+      Alert.alert("Incomplete", "Please mark attendance for all students.");
+      return;
+    }
+
+    const presentCount = students.filter(s => s.status === 'Present').length;
+    const absentCount = students.filter(s => s.status === 'Absent').length;
+
+    // TODO: Send 'students' and 'selectedHour' to your API here
+    const message = viewMode === 'fullday'
+      ? `Full Day (5 Hours)\nPresent: ${presentCount}\nAbsent: ${absentCount}`
+      : `Hour: ${selectedHour}\nPresent: ${presentCount}\nAbsent: ${absentCount}`;
+
+    Alert.alert(
+      "Attendance Saved",
+      message,
+      [{ text: "OK", onPress: () => navigation.goBack() }]
+    );
+  };
+
+  const handleHourChange = (hour: number) => {
+    setSelectedHour(hour);
+    // Optional: Reset attendance or fetch data for the new hour here
+    // setStudents(prev => prev.map(s => ({ ...s, status: null })));
+  };
+
+  const renderStudentItem = ({ item }: { item: Student }) => {
+    const isPresent = item.status === 'Present';
+    const isAbsent = item.status === 'Absent';
+
+    return ("
+   Surrounding: const [selectedShift, setSelectedShift] = useState<'1' | '2'>('1');
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 117: "markStudent(item.id, 'Absent')}
+          >"
+   Surrounding: onPress={() => markStudent(item.id, 'Absent')}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 129: "markStudent(item.id, 'Present')}
+          >"
+   Surrounding: onPress={() => markStudent(item.id, 'Present')}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 138: ");
+  };
+
+  return ("
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 153: "navigation.goBack()} style={styles.backButton}>"
+   Surrounding: <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 169: "{ setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); setShowShiftDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 173: "{showProgramDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 176: "{['UG', 'PG'].map((prog) => ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 181: "{ setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+                    >"
+   Surrounding: onPress={() => { setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 186: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 188: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 196: "{ setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); setShowShiftDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 202: "{showYearDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 205: "{['1', '2', '3'].map((year) => {
+                    if (selectedProgram === 'PG' && year === '3') return null;
+                    return ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 212: "{ setSelectedYear(year as any); setShowYearDropdown(false); }}
+                      >"
+   Surrounding: onPress={() => { setSelectedYear(year as any); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 217: ");
+                  })}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 220: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 228: "{ setShowShiftDropdown(!showShiftDropdown); setShowProgramDropdown(false); setShowYearDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowShiftDropdown(!showShiftDropdown); setShowProgramDropdown(false); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 232: "{showShiftDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 235: "{['1', '2'].map((shift) => ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 240: "{ setSelectedShift(shift as any); setShowShiftDropdown(false); }}
+                    >"
+   Surrounding: onPress={() => { setSelectedShift(shift as any); setShowShiftDropdown(false); }}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 245: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 247: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 272: "setViewMode('hourly')}
+        >"
+   Surrounding: onPress={() => setViewMode('hourly')}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 278: "setViewMode('fullday')}
+        >"
+   Surrounding: onPress={() => setViewMode('fullday')}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 282: "{/* --- HOUR SELECTION TABS (Hourly Mode Only) --- */}
+      {viewMode === 'hourly' && ("
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 287: "{[1, 2, 3, 4, 5].map((hour) => ("
+   Surrounding: <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabScrollContent}>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 292: "handleHourChange(hour)}
+              >"
+   Surrounding: onPress={() => handleHourChange(hour)}
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 297: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 300: ")}
+
+      {/* --- LIST --- */}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/ManualAttendanceScreen.tsx at line 306: "item.id}
+        renderItem={renderStudentItem}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+      />
+
+      {/* --- SAVE BUTTON --- */}"
+   Surrounding: keyExtractor={item => item.id}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 24: "{
+  const [students, setStudents] = useState(initialStudents);
+  const [name, setName] = useState('');
+  const [regNo, setRegNo] = useState('');
+  const [shift, setShift] = useState"
+   Surrounding: const StudentManagementScreen = ({ navigation }: any) => {
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 28: "('1'); // For Add Student
+  const [searchText, setSearchText] = useState('');
+
+  // --- FILTER STATE ---
+  const [selectedProgram, setSelectedProgram] = useState"
+   Surrounding: const [shift, setShift] = useState<'1' | '2'>('1'); // For Add Student
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 32: "('UG');
+  const [selectedYear, setSelectedYear] = useState"
+   Surrounding: const [selectedProgram, setSelectedProgram] = useState<'UG' | 'PG'>('UG');
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 33: "('1');
+  const [selectedShift, setSelectedShift] = useState"
+   Surrounding: const [selectedYear, setSelectedYear] = useState<'1' | '2' | '3'>('1');
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 34: "('1'); // Filter
+  const [showProgramDropdown, setShowProgramDropdown] = useState(false);
+  const [showYearDropdown, setShowYearDropdown] = useState(false);
+  const [showShiftDropdown, setShowShiftDropdown] = useState(false);
+
+  // Handle Logic: If PG is selected, reset Year 3 to Year 1
+  React.useEffect(() => {
+    if (selectedProgram === 'PG' && selectedYear === '3') {
+      setSelectedYear('1');
+    }
+  }, [selectedProgram]);
+
+  // --- ADD STUDENT LOGIC ---
+  const handleAddStudent = () => {
+    if (name.trim() === '' || regNo.trim() === '') {
+      Alert.alert("Error", "Please enter both Name and Register Number");
+      return;
+    }
+
+    const newStudent = {
+      id: Date.now().toString(),
+      name: name,
+      regNo: regNo,
+      shift: shift,
+    };
+
+    setStudents([newStudent, ...students]);
+    setName('');
+    setRegNo('');
+    Alert.alert("Success", "Student Added Successfully");
+  };
+
+  // --- DELETE LOGIC ---
+  const handleDelete = (id: string) => {
+    Alert.alert(
+      "Delete Student",
+      "Are you sure?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete", style: 'destructive', onPress: () => {
+            setStudents(students.filter(student => student.id !== id));
+          }
+        }
+      ]
+    );
+  };
+
+  // --- FILTER LOGIC ---
+  // --- FILTER LOGIC ---
+  const filteredList = students.filter(student => {
+    const matchesSearch = student.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      student.regNo.toLowerCase().includes(searchText.toLowerCase());
+    const matchesShift = student.shift === selectedShift;
+    return matchesSearch && matchesShift;
+  });
+
+  // --- RENDER ITEM ---
+  const renderItem = ({ item }: any) => ("
+   Surrounding: const [selectedShift, setSelectedShift] = useState<'1' | '2'>('1'); // Filter
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 106: "handleDelete(item.id)} style={styles.deleteBtn}>"
+   Surrounding: <TouchableOpacity onPress={() => handleDelete(item.id)} style={styles.deleteBtn}>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 109: ");
+
+  return ("
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 123: "navigation.goBack()} style={styles.backBtn}>"
+   Surrounding: <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 137: "{ setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowProgramDropdown(!showProgramDropdown); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 141: "{showProgramDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 144: "{['UG', 'PG'].map((prog) => ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 149: "{ setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+                    >"
+   Surrounding: onPress={() => { setSelectedProgram(prog as any); setShowProgramDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 154: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 156: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 164: "{ setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); }}
+              >"
+   Surrounding: onPress={() => { setShowYearDropdown(!showYearDropdown); setShowProgramDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 170: "{showYearDropdown && ("
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 173: "{['1', '2', '3'].map((year) => {
+                    if (selectedProgram === 'PG' && year === '3') return null;
+                    return ("
+   Surrounding: <View style={styles.dropdownMenu}>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 180: "{ setSelectedYear(year as any); setShowYearDropdown(false); }}
+                      >"
+   Surrounding: onPress={() => { setSelectedYear(year as any); setShowYearDropdown(false); }}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 185: ");
+                  })}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 188: ")}"
+   Surrounding: </View>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 225: "{['1', '2'].map((s) => ("
+   Surrounding: <View style={styles.shiftRow}>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 230: "setShift(s as '1' | '2')}
+                >"
+   Surrounding: onPress={() => setShift(s as '1' | '2')}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 235: "))}"
+   Surrounding: </TouchableOpacity>
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 268: "item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          ListEmptyComponent={"
+   Surrounding: keyExtractor={item => item.id}
+Possible stray text in front_end/screens/Staff/StudentManagementScreen.tsx at line 275: "}
+        />"
+   Surrounding: </View>
